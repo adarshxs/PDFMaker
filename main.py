@@ -92,7 +92,7 @@ for i in range(int(number)):
         width, height = img.size
         pdf.image(output_images[i], x=10, y=y_offset, w=100)
         y_offset += height * (100 / width) + 10
-        img.close()
+    img.close()
 pdf.output(f"code_submission.pdf")
 
 def generate_pdf():
