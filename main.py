@@ -7,7 +7,7 @@ from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import ImageFormatter
 
-ImageFormatter()
+ImageFormatter(font_name='Arial')
 
 st.set_page_config(page_title='Code Submission', page_icon=':memo:', layout='wide')
 
@@ -39,8 +39,8 @@ for i in range(int(number)):
     if question_image is not None:
         img = Image.open(question_image)
         img = img.convert('RGB') # convert image to RGB format
-        img.save(f'/app/temp_question_{i}.png', format='png') # save image as a PNG file
-        question_images.append(f'/app/temp_question_{i}.png')
+        img.save(f'temp_question_{i}.png', format='png') # save image as a PNG file
+        question_images.append(f'temp_question_{i}.png')
     code_input = st.text_area(f'Paste code for question {i+1}')
     if code_input:
         code_inputs.append(code_input)
@@ -48,8 +48,8 @@ for i in range(int(number)):
     if output_image is not None:
         img = Image.open(output_image)
         img = img.convert('RGB') # convert image to RGB format
-        img.save(f'/app/temp_output_{i}.png', format='png') # save image as a PNG file
-        output_images.append(f'/app/temp_output_{i}.png')
+        img.save(f'temp_output_{i}.png', format='png') # save image as a PNG file
+        output_images.append(f'temp_output_{i}.png')
     st.write("---")
 
 pdf = FPDF()
@@ -83,11 +83,11 @@ for i in range(int(number)):
         pdf.image(question_images[i], x=10, y=y_offset, w=100)
         y_offset += height * (100 / width) + 10
     if i < len(code_inputs):
-        with open(f'/app/temp_code_{i}.png', 'wb') as f:
+        with open(f'temp_code_{i}.png', 'wb') as f:
             f.write(highlight(code_inputs[i], PythonLexer(), ImageFormatter()))
-        img = Image.open(f'/app/temp_code_{i}.png')
+        img = Image.open(f'temp_code_{i}.png')
         width, height = img.size
-        pdf.image(f'/app/temp_code_{i}.png', x=10, y=y_offset, w=100)
+        pdf.image(f'temp_code_{i}.png', x=10, y=y_offset, w=100)
         y_offset += height * (100 / width) + 10
     if i < len(output_images):
         img = Image.open(output_images[i])
@@ -95,25 +95,27 @@ for i in range(int(number)):
         pdf.image(output_images[i], x=10, y=y_offset, w=100)
         y_offset += height * (100 / width) + 10
     img.close()
-pdf.output(f"/app/code_submission.pdf")
+pdf.output(f"code_submission.pdf")
+
+#changes
 
 def generate_pdf():
     # code to generate the PDF file
-    with open(f"/app/code_submission.pdf", "rb") as f:
+    with open(f"code_submission.pdf", "rb") as f:
         bytes = f.read()
         b64 = base64.b64encode(bytes).decode()
-        href = f'<a href="data:application/octet-stream;base64,{b64}" download="/app/code_submission.pdf">Download PDF</a>'
+        href = f'<a href="data:application/octet-stream;base64,{b64}" download="code_submission.pdf">Download PDF</a>'
         st.markdown(href, unsafe_allow_html=True)
 
 if st.button('Generate PDF'):
     generate_pdf()
     for i in range(int(number)):
-        if os.path.exists(f'/app/temp_question_{i}.png'):
-            os.remove(f'/app/temp_question_{i}.png')
-        if os.path.exists(f'/app/temp_code_{i}.png'):
-            os.remove(f'/app/temp_code_{i}.png')
-        if os.path.exists(f'/app/temp_output_{i}.png'):
-            os.remove(f'/app/temp_output_{i}.png')
+        if os.path.exists(f'temp_question_{i}.png'):
+            os.remove(f'temp_question_{i}.png')
+        if os.path.exists(f'temp_code_{i}.png'):
+            os.remove(f'temp_code_{i}.png')
+        if os.path.exists(f'temp_output_{i}.png'):
+            os.remove(f'temp_output_{i}.png')
         
 
 
