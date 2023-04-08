@@ -7,7 +7,7 @@ from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import ImageFormatter
 
-ImageFormatter()
+formatter = ImageFormatter(font_name="Arial")
 
 st.set_page_config(page_title='Code Submission', page_icon=':memo:', layout='wide')
 
@@ -84,7 +84,7 @@ for i in range(int(number)):
         y_offset += height * (100 / width) + 10
     if i < len(code_inputs):
         with open(f'temp_code_{i}.png', 'wb') as f:
-            f.write(highlight(code_inputs[i], PythonLexer(), ImageFormatter()))
+            f.write(highlight(code_inputs[i], PythonLexer(), formatter))
         img = Image.open(f'temp_code_{i}.png')
         width, height = img.size
         pdf.image(f'temp_code_{i}.png', x=10, y=y_offset, w=100)
