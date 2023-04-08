@@ -88,8 +88,8 @@ for i in range(int(number)):
         img = Image.open(f'temp_code_{i}.png')
         width, height = img.size
         pdf.image(f'temp_code_{i}.png', x=10, y=y_offset, w=100)
-        os.remove(f'temp_code_{i}.png')
         y_offset += height * (100 / width) + 10
+        os.remove(f'temp_code_{i}.png')
     if i < len(output_images):
         img = Image.open(output_images[i])
         width, height = img.size
