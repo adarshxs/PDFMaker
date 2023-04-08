@@ -7,7 +7,7 @@ from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import ImageFormatter
 
-ImageFormatter(font_name='Arial')
+ImageFormatter()
 
 st.set_page_config(page_title='Code Submission', page_icon=':memo:', layout='wide')
 
