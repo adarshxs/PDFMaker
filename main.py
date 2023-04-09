@@ -7,8 +7,6 @@ from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import ImageFormatter
 
-formatter = ImageFormatter()
-
 st.set_page_config(page_title='PDFMaker', page_icon=':memo:', layout='wide')
 
 with st.sidebar:
@@ -22,7 +20,7 @@ with st.sidebar:
     st.write("")
 
 
-st.title('Code Submission')
+st.title('PDF Maker')
 
 name = st.text_input('Enter your name')
 reg_num = st.text_input('Enter your registration number')
@@ -87,6 +85,7 @@ for i in range(int(number)):
         y_offset += height * (100 / width) + 10
         img.close()
     if i < len(code_inputs):
+        formatter = ImageFormatter()
         with open(f'temp_code_{i}.png', 'wb') as f:
             f.write(highlight(code_inputs[i], PythonLexer(), formatter))
         img = Image.open(f'temp_code_{i}.png')
