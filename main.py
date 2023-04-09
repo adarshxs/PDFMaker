@@ -89,6 +89,8 @@ for i in range(int(number)):
         width, height = img.size
         pdf.image(f'temp_code_{i}.png', x=10, y=y_offset, w=100)
         y_offset += height * (100 / width) + 10
+        img.close()
+        os.remove(f'temp_code_{i}.png')
     if  y_offset > pdf.w - 20: # check if y_offset exceeds page height
         pdf.add_page() # add a new page
         y_offset = 30 # reset y_offset
