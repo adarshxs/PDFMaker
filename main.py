@@ -85,6 +85,7 @@ for i in range(int(number)):
         width, height = img.size
         pdf.image(question_images[i], x=10, y=y_offset, w=100)
         y_offset += height * (100 / width) + 10
+        img.close()
     if i < len(code_inputs):
         with open(f'temp_code_{i}.png', 'wb') as f:
             f.write(highlight(code_inputs[i], PythonLexer(), formatter))
@@ -102,7 +103,8 @@ for i in range(int(number)):
         width, height = img.size
         pdf.image(output_images[i], x=10, y=y_offset, w=100)
         y_offset += height * (100 / width) + 10
-    img.close()
+        img.close()
+
 pdf.output(f"code_submission.pdf")
 
 #changes
