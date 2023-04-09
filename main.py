@@ -6,6 +6,8 @@ import os
 from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import ImageFormatter
+from contextlib import contextmanager
+from PIL import Image
 
 formatter = ImageFormatter()
 
@@ -61,13 +63,7 @@ for i, _ in enumerate(range(int(number))):
         st.write("---")
 
 # Save the question and output images to disk
-import os
-from contextlib import contextmanager
-from fpdf import FPDF
-from pygments import highlight
-from pygments.formatters import ImageFormatter
-from pygments.lexers import PythonLexer
-from PIL import Image
+
 
 @contextmanager
 def open_image(filename):
@@ -139,6 +135,7 @@ for i in range(int(number)):
         width, height = img.size
         pdf.image(code_inputs[-1], x=10, y=y_offset, w=100)
         y_offset += height * (100 / width) + 10
+        img.close()
 
     # Add the code and output images if they exist
     if i < len(code_inputs):
@@ -164,6 +161,7 @@ for i in range(int(number)):
         os.remove(code_inputs[-1])
     if i < len(output_images):
         os.remove(code_inputs[-1])
+        img.close()
 
 pdf.output(f"code_submission.pdf")
 
