@@ -1,4 +1,7 @@
 # PDFMaker
+
+![image](https://user-images.githubusercontent.com/114558126/230770626-5442dad7-ab17-4130-a023-41450657009e.png)
+
 This is a Streamlit app that simplifies the process of generating PDF files for your Moodle assignments. With this app, you can easily upload images for your questions and outputs, and paste your code for each question. You can also add some text to be printed on the first page of the PDF.
 
 ## Getting Started
