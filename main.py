@@ -9,7 +9,7 @@ from pygments.formatters import ImageFormatter
 
 formatter = ImageFormatter()
 
-st.set_page_config(page_title='Code Submission', page_icon=':memo:', layout='wide')
+st.set_page_config(page_title='PDFMaker', page_icon=':memo:', layout='wide')
 
 with st.sidebar:
     st.sidebar.image("logo.png", use_column_width=True)
