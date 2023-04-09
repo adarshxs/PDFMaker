@@ -16,8 +16,11 @@ with st.sidebar:
     st.write("Simplifies your Moodle ➡️ Vtop process. Use this to simplify generating PDF's for your Moodle assignments.")
     st.warning("This app is still in development. Please report any bugs or issues.")
     st.write("Follow me on Instagram [@adarsh.py](https://www.instagram.com/adarsh.py/)!")
+    st.info("Contribute here! [GitHub](https://github.com/adarshxs/PDFMaker)")
     st.info("[Compress](https://www.ilovepdf.com/compress_pdf) your generated pdf's here!", icon="📄")
+    
     st.write("")
+
 
 st.title('Code Submission')
 
