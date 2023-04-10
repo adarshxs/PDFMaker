@@ -53,6 +53,15 @@ for i in range(int(number)):
         output_images.append(f'temp_output_{i}.png')
     st.write("---")
 
+# set minimum line length for code inputs else shit blows up
+min_line_length = 40 
+for i in range(len(code_inputs)):
+    code_lines = code_inputs[i].split('\n')
+    max_line_length = max(len(line) for line in code_lines)
+    if max_line_length < min_line_length:
+        padding = ' ' * (min_line_length - max_line_length)
+        code_inputs[i] = '\n'.join(line + padding for line in code_lines)
+
 pdf = FPDF()
 
 pdf.add_page()
@@ -70,6 +79,10 @@ pdf.cell(0, 10, '', 0, 1)
 pdf.set_font('Arial', '', 12)
 pdf.cell(0, 20, f"{text_in}", 0, 1, 'C')
 
+page_width = pdf.w
+max_image_width = page_width * 0.8 # set maximum image width to 80% of page width
+
+
 for i in range(int(number)):
     pdf.add_page()
     pdf.set_font("Arial", size=12)
@@ -81,17 +94,23 @@ for i in range(int(number)):
     if i < len(question_images):
         img = Image.open(question_images[i])
         width, height = img.size
-        pdf.image(question_images[i], x=10, y=y_offset, w=100)
-        y_offset += height * (100 / width) + 10
+        image_width = min(max_image_width, width) # set image width to the smaller of max_image_width and original image width
+        X = (page_width - image_width) / 2
+        pdf.image(question_images[i], x=X, y=y_offset, w=image_width)
+        page_height = pdf.h
+        padding = page_height * 0.15
+        y_offset += height * (100 / width) + padding
         img.close()
     if i < len(code_inputs):
-        formatter = ImageFormatter()
+        formatter = ImageFormatter(style='github-dark')
         with open(f'temp_code_{i}.png', 'wb') as f:
             f.write(highlight(code_inputs[i], PythonLexer(), formatter))
         img = Image.open(f'temp_code_{i}.png')
         width, height = img.size
-        pdf.image(f'temp_code_{i}.png', x=10, y=y_offset, w=100)
-        y_offset += height * (100 / width) + 10
+        image_width = min(max_image_width, width) # set image width to the smaller of max_image_width and original image width
+        X = (page_width - image_width) / 2
+        pdf.image(f'temp_code_{i}.png', x=X, y=y_offset, w=image_width)
+        y_offset += height * (100 / width) + padding
         img.close()
         os.remove(f'temp_code_{i}.png')
     if  y_offset > pdf.w - 20: # check if y_offset exceeds page height
@@ -100,7 +119,9 @@ for i in range(int(number)):
     if i < len(output_images):
         img = Image.open(output_images[i])
         width, height = img.size
-        pdf.image(output_images[i], x=10, y=y_offset, w=100)
+        image_width = min(max_image_width, width) # set image width to the smaller of max_image_width and original image width
+        X = (page_width - image_width) / 2
+        pdf.image(output_images[i], x=X, y=y_offset, w=image_width)
         y_offset += height * (100 / width) + 10
         img.close()
 
