@@ -11,9 +11,10 @@ st.set_page_config(page_title='PDFMaker', page_icon=':memo:', layout='wide')
 
 with st.sidebar:
     st.sidebar.image("logo.png", use_column_width=True)
-    st.write("Simplifies your Moodle ➡️ Vtop process. Use this to simplify generating PDF's for your Moodle assignments.")
-    st.warning("This app is still in development. Please report any bugs or issues.")
+    st.write("Simplify generating PDF's for your assignments.")
     st.write("Follow me on Instagram [@adarsh.py](https://www.instagram.com/adarsh.py/)!")
+    st.warning("This app is still in development. Please report any bugs or issues.")
+    st.warning("If PDF preview doesn't work, check your browser settings to see if the “Block dangerous and deceptive content” option is enabled. Try disabling it temporarily to see if it resolves the issue.")
     st.info("Contribute here! [GitHub](https://github.com/adarshxs/PDFMaker)")
     st.info("[Compress](https://www.ilovepdf.com/compress_pdf) your generated pdf's here!", icon="📄")
     
@@ -136,10 +137,17 @@ pdf.output(f"code_submission.pdf")
 #changes
 
 def generate_pdf():
+
+# Display download button for PDF file
+    st.download_button(
+    label="Download PDF",
+    data=open('code_submission.pdf', 'rb'),
+    file_name='code_submission.pdf',
+    )
     # code to generate the PDF file
     with open(f"code_submission.pdf", "rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-        pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf"></iframe>'
+        pdf_display = f'<embed src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf"></embed>'
         st.markdown(pdf_display, unsafe_allow_html=True)
 
 if st.button('Generate PDF'):
