@@ -94,6 +94,7 @@ for i in range(int(number)):
     pdf.add_page()
     pdf.set_font("Arial", size=12)
     y_offset = 30
+    padding = 0
 
     pdf.cell(200, 10, txt=f"Q{i+1})", ln=1, align='L')
     pdf.cell(200, 10, txt="Code & Output:", ln=1, align='L')
