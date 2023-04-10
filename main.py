@@ -14,7 +14,7 @@ with st.sidebar:
     st.write("Simplify generating PDF's for your assignments.")
     st.write("Follow me on Instagram [@adarsh.py](https://www.instagram.com/adarsh.py/)!")
     st.warning("This app is still in development. Please report any bugs or issues.")
-    st.warning("If PDF preview doesn't work, check your browser settings to see if the “Block dangerous and deceptive content” option is enabled. Try disabling it temporarily to see if it resolves the issue.")
+    st.warning("If PDF preview doesn't work(You can just download the pdf file), check your browser settings to see if the “Block dangerous and deceptive content” option is enabled. Try disabling it temporarily to see if it resolves the issue.")
     st.info("Contribute here! [GitHub](https://github.com/adarshxs/PDFMaker)")
     st.info("[Compress](https://www.ilovepdf.com/compress_pdf) your generated pdf's here!", icon="📄")
     
@@ -145,9 +145,9 @@ def generate_pdf():
     file_name='code_submission.pdf',
     )
     # code to generate the PDF file
-    with open(f"code_submission.pdf", "rb") as f:
+    with open("code_submission.pdf", "rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
-        pdf_display = f'<iframe src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf"></iframe>'
+        pdf_display = F'<iframe src="data:application/pdf;base64,{base64_pdf}" width="800" height="800" type="application/pdf"></iframe>'
         st.markdown(pdf_display, unsafe_allow_html=True)
 
 if st.button('Generate PDF'):
