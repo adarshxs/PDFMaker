@@ -27,7 +27,14 @@ reg_num = st.text_input('Enter your registration number')
 ass_name = st.text_input('Enter assignment name')
 text_in = st.text_area('Enter anything you want to be printed on the first page: ')
 
-number = st.number_input('Insert the number of questions', step=1, min_value=1)
+col1, col2= st.columns(2)
+with col1:
+   number = st.number_input('Insert the number of questions', step=1, min_value=1)
+
+with col2:
+   theme = st.selectbox(
+    'Choose a theme!',
+    ('default', 'github-dark', 'sas', 'rrt', 'rainbow_dash', 'stata-light', 'gruvbox-light', 'gruvbox-light', 'monokai', 'vim', 'inkpot'))
 
 question_images = []
 code_inputs = []
@@ -102,7 +109,7 @@ for i in range(int(number)):
         y_offset += height * (100 / width) + padding
         img.close()
     if i < len(code_inputs):
-        formatter = ImageFormatter(style='github-dark')
+        formatter = ImageFormatter(style=theme)
         with open(f'temp_code_{i}.png', 'wb') as f:
             f.write(highlight(code_inputs[i], PythonLexer(), formatter))
         img = Image.open(f'temp_code_{i}.png')
