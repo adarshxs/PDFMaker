@@ -88,7 +88,6 @@ pdf.cell(0, 20, f"{text_in}", 0, 1, 'C')
 
 page_width = pdf.w
 max_image_width = page_width * 0.8 # set maximum image width to 80% of page width
-padding = 30
 
 for i in range(int(number)):
     pdf.add_page()
@@ -105,7 +104,7 @@ for i in range(int(number)):
         X = (page_width - image_width) / 2
         pdf.image(question_images[i], x=X, y=y_offset, w=image_width)
         page_height = pdf.h
-        padding = page_height * 0.15
+        padding = page_height * 0.125
         y_offset += height * (100 / width) + padding
         img.close()
     if i < len(code_inputs):
