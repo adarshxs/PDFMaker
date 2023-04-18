@@ -121,7 +121,7 @@ for i in range(int(number)):
         y_offset += height * (100 / width) + padding
         img.close()
         os.remove(f'temp_code_{i}.png')
-    if  y_offset > pdf.w - 20: # check if y_offset exceeds page height
+    if y_offset > pdf.w - 20: # check if y_offset exceeds page height
         pdf.add_page() # add a new page
         y_offset = 30 # reset y_offset
     if i < len(output_images):
